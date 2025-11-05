@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: haninh_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-haninh_academy_manager}
+      MYSQL_USER: ${MYSQL_USER:-haninh_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-haninh_password}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - haninh_network
+
+  # Backend Server
+  backend:
+    build:
+      context: ./Haninh_Server
+      dockerfile: Dockerfile
+    container_name: haninh_backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: local
+      DB_HOST: host.docker.internal
+      DB_PORT: 3306
+      DB_USER_NAME: root
+      DB_USER_PASS: ""
+      DB_NAME: haninh_academy_manager
+      PORT: 10093
+      PORT_SOCKET: 10094
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET:-ACCESS_TOKEN_SECRET}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET:-REFRESH_TOKEN_SECRET}
+      EMAIL_PASS: ${EMAIL_PASS:-ckvnixgpidkecgpm}
+      EMAIL_USERNAME: ${EMAIL_USERNAME:-nguyentienvietk9@gmail.com}
+    ports:
+      - "10093:10093"
+    volumes:
+      - ./Haninh_Server/uploads:/app/uploads
+    networks:
+      - haninh_network
+    command: sh -c "npm start"
+
+  # Frontend Client
+  frontend:
+    build:
+      context: ./Haninh_Client
+      dockerfile: Dockerfile
+    container_name: haninh_frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - haninh_network
+
+volumes:
+  mysql_data:
+
+networks:
+  haninh_network:
+    driver: bridge
+
