@@ -1,0 +1,267 @@
+.ai-chat-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #2e7dff;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.ai-chat-button:hover {
+  transform: scale(1.08);
+  background-color: #1f65ea;
+}
+
+.ai-chat-button .uil {
+  font-size: 26px;
+  color: #fff;
+}
+
+.ai-chat-popup {
+  position: fixed;
+  width: 400px;
+  height: 600px;
+  right: 90px;
+  bottom: 90px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9998;
+  animation: chatFade 0.25s ease;
+}
+
+@keyframes chatFade{
+  from{
+    transform: translateY(20px);
+    opacity:0;
+  }
+  to{
+    transform: translateY(0);
+    opacity:1;
+  }
+}
+
+.ai-chat-hidden {
+  display: none;
+}
+
+.ai-chat-header {
+  padding: 12px 14px;
+  font-weight: 700;
+  font-size: 1rem;
+  background-color: #2e7dff;
+  color: #fff;
+  text-align: center;
+  user-select: none;
+  cursor: grab;
+}
+.ai-chat-header span{
+  font-size:20px;
+}
+
+.ai-chat-body {
+  flex: 1;
+  padding: 12px;
+  background-color: #f7f8ff;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ai-chat-message {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.ai-chat-message.user {
+  align-self: flex-end;
+  max-width: 75%;
+  background-color: #2e7dff;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.ai-chat-message.bot {
+  align-self: flex-start;
+  background-color: #e5e8ff;
+  color: #272b30;
+  border-bottom-left-radius: 4px;
+}
+.ai-chat-input-area {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ececec;
+}
+
+.ai-chat-input {
+  flex: 1;
+  border: 1px solid #dfe4f3;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.ai-chat-input:focus {
+  border-color: #2e7dff;
+  box-shadow: 0 0 0 2px rgba(46, 125, 255, 0.2);
+}
+
+.ai-chat-send {
+  flex-shrink: 0;
+  border: none;
+  border-radius: 8px;
+  background-color: #2e7dff;
+  color: #fff;
+  font-weight: 600;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+.ai-chat-send:hover {
+  background-color: #1f65ea;
+}
+
+.ai-typing {
+  display: flex;
+  gap: 4px;
+  padding: 6px 10px;
+}
+
+.ai-typing span{
+  width:6px;
+  height:6px;
+  background:#888;
+  border-radius:50%;
+  animation:typing 1.2s infinite;
+}
+
+.ai-typing span:nth-child(2){
+  animation-delay:0.2s;
+}
+
+.ai-typing span:nth-child(3){
+  animation-delay:0.4s;
+}
+
+@keyframes typing{
+  0%{opacity:0.3;}
+  50%{opacity:1;}
+  100%{opacity:0.3;}
+}
+
+.ai-suggestions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:6px;
+}
+
+.ai-suggestion-btn{
+  border:1px solid #2e7dff;
+  background:#fff;
+  color:#2e7dff;
+  padding:6px 10px;
+  border-radius:16px;
+  font-size:0.8rem;
+  cursor:pointer;
+}
+
+.ai-suggestion-btn:hover{
+  background:#2e7dff;
+  color:#fff;
+}
+
+.ai-msg-time{
+  font-size:10px;
+  opacity:0.6;
+  margin-top:2px;
+}
+
+.ai-chat-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 12px;
+  background:#3b82f6;
+  color:#fff;
+  font-weight:600;
+  border-top-left-radius:12px;
+  border-top-right-radius:12px;
+}
+
+
+
+.ai-chat-clear{
+  background:transparent;
+  border:none;
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+  padding:4px 6px;
+}
+
+.ai-chat-clear:hover{
+  opacity:0.75;
+}
+
+.ai-msg-text{
+  font-size:14px;
+  line-height:1.5;
+  color:#333;
+}
+
+/* Heading */
+.ai-msg-text h1,
+.ai-msg-text h2,
+.ai-msg-text h3{
+  font-size:18px !important;
+  font-weight:600;
+  margin:8px 0 4px;
+}
+
+/* Paragraph */
+.ai-msg-text p{
+  margin:6px 0;
+}
+
+/* List */
+.ai-msg-text ul{
+  padding-left:18px;
+  margin:6px 0;
+}
+
+.ai-msg-text li{
+  margin-bottom:4px;
+}
+
+/* Number list */
+.ai-msg-text ol{
+  padding-left:18px;
+  margin:6px 0;
+}
+
+/* Bold */
+.ai-msg-text strong{
+  font-weight:600;
+}
